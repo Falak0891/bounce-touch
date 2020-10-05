@@ -1,79 +1,52 @@
 var fixedRect, movingRect;
-
+var gameObject1, gameObject2, gameObject3,gameObject4;
 function setup() {
-  createCanvas(windowWidth,windowHeight);
-
-  fixedRect = createSprite(100,300,60,50);
-  fixedRect.shapeColor="green";
-  fixedRect.debug = true;
-
-  movingRect = createSprite(500,100,50,50);
-  movingRect.shapeColor="green";
-  movingRect.debug =true;
-
-  movingRect.velocityX = -3;
-  movingRect.velocityY = 2;
-  fixedRect.velocityX = 5;
-  fixedRect.velocityY = -6;
-
-
+  createCanvas(800,400);
+  fixedRect = createSprite(400, 50, 50, 50);
+  fixedRect.shapeColor = "green";
+  movingRect = createSprite(400,350,50,50);
+  movingRect.shapeColor = "green";
+  gameObject1 = createSprite(100,100,50,50);
+  gameObject1.shapeColor = "green";
+  gameObject1.debug=true;
+  gameObject2 = createSprite(200,100,50,50);
+  gameObject2.shapeColor = "green";
+  gameObject2.debug=true;
+  gameObject3 = createSprite(300,100,50,50);
+  gameObject3.shapeColor = "green";
+  gameObject4 = createSprite(400,100,50,50);
+  gameObject4.shapeColor = "green";
+ // movingRect.velocityY = -5;
+  //fixedRect.velocityY = +5;
 }
 
 function draw() {
-  background(0);  
+  background(255,255,255);  
+  gameObject1.x = World.mouseX;
+  gameObject1.y = World.mouseY;
+  //console.log(movingRect.x - fixedRect.x);
 
- /* if(  movingRect.x - fixedRect.x <= movingRect.width/2 + fixedRect.width/2 
-    && fixedRect.x - movingRect.x <= movingRect.width/2 + fixedRect.width/2
-    && movingRect.y - fixedRect.y <= movingRect.height/2 + fixedRect.height/2
-    && fixedRect.y - movingRect.y <= movingRect.height/2 + fixedRect.height/2){
-      
-      movingRect.shapeColor = "red";
-      fixedRect.shapeColor = "red";
+
+  if(isTouching(gameObject2,gameObject1)){
+    text("Touching",200,200);
+
   }
   else{
     movingRect.shapeColor = "green";
-    fixedRect.shapeColor = "green";
-  }*/
-push();
-  if( movingRect.x >= width - movingRect.width/2  || movingRect.x  <= movingRect.width/2){
-      movingRect.velocityX = -movingRect.velocityX;
-    }
+    gameObject1.shapeColor = "green";
 
-    if( fixedRect.x >= width - fixedRect.width/2  || fixedRect.x  <= fixedRect.width/2){
-      fixedRect.velocityX = -fixedRect.velocityX;
-    }
+  }
+  var x_dis =gameObject1.x-gameObject2.x;
+  var w_dis =gameObject1.width/2+gameObject2.width/2
 
-    if( movingRect.y >= height - movingRect.height/2  || movingRect.y  <= movingRect.height/2){
-      movingRect.velocityY = -movingRect.velocityY;
-    }
+  console.log("X_ distance : "+ x_dis);
+  console.log("W_ distance : "+ w_dis);
 
-    if( fixedRect.y >= height - fixedRect.height/2  || fixedRect.y  <= fixedRect.height/2){
-      fixedRect.velocityY = -fixedRect.velocityY;
-    }
-    pop();
-      if(  movingRect.x - fixedRect.x <= movingRect.width/2 + fixedRect.width/2 
-    && fixedRect.x - movingRect.x <= movingRect.width/2 + fixedRect.width/2
-    && fixedRect.y <= movingRect.y-movingRect.height/2 && fixedRect.y >= movingRect.y+movingRect.height/2){
+  //bounceOff(fixedRect, movingRect);
 
-      movingRect.velocityX = movingRect.velocityX *(-1);
-      fixedRect.velocityX = fixedRect.velocityX * (-1);
-    
-    }
-     if(movingRect.y - fixedRect.y <= movingRect.height/2 + fixedRect.height/2
-      && fixedRect.y - movingRect.y <= movingRect.height/2 + fixedRect.height/2
-      && fixedRect.x >= movingRect.x-movingRect.width/2 && fixedRect.x <= movingRect.x+movingRect.width/2){
-
-       
-        movingRect.velocityY = movingRect.velocityY*(-1);
-        fixedRect.velocityY = fixedRect.velocityY*(-1);
-
-    }
-
-console.log(movingRect.x-movingRect.width/2);
-console.log(movingRect.x+movingRect.width/2);
-console.log(fixedRect.x);
-
-    
 
   drawSprites();
+  
+ 
 }
+
